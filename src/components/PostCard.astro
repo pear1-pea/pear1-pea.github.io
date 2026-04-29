@@ -7,6 +7,7 @@ import { i18n } from "../i18n/translation";
 import { getDir } from "../utils/url-utils";
 import ImageWrapper from "./misc/ImageWrapper.astro";
 import PostMetadata from "./PostMeta.astro";
+import { extractLongExcerpt } from "../utils/long-excerpt";
 
 interface Props {
 	class?: string;
@@ -20,6 +21,7 @@ interface Props {
 	description: string;
 	draft: boolean;
 	style: string;
+	index?: number;
 }
 const {
 	entry,
@@ -31,7 +33,9 @@ const {
 	image,
 	description,
 	style,
+	index = 1,
 } = Astro.props;
+const isFirst = index === 0;
 const className = Astro.props.class;
 
 const hasCover = image !== undefined && image !== null && image !== "";
@@ -39,9 +43,10 @@ const hasCover = image !== undefined && image !== null && image !== "";
 const coverWidth = "28%";
 
 const { remarkPluginFrontmatter } = await entry.render();
+const longExcerptHtml = isFirst ? extractLongExcerpt(entry.body) : "";
 ---
 <div class:list={["card-base flex flex-col-reverse md:flex-col w-full rounded-[var(--radius-large)] overflow-hidden relative", className]} style={style}>
-    <div class:list={["pl-6 md:pl-9 pr-6 md:pr-2 pt-6 md:pt-7 pb-6 relative", {"w-full md:w-[calc(100%_-_52px_-_12px)]": !hasCover, "w-full md:w-[calc(100%_-_var(--coverWidth)_-_12px)]": hasCover}]}>
+    <div class:list={["pl-6 md:pl-9 pr-6 md:pr-2 pt-6 md:pt-7 relative", {"w-full md:w-[calc(100%_-_52px_-_12px)]": !hasCover, "w-full md:w-[calc(100%_-_var(--coverWidth)_-_12px)]": hasCover}, isFirst ? "pb-8" : "pb-6"]}>
         <a href={url}
            class="transition group w-full block font-bold mb-3 text-3xl text-90
         hover:text-[var(--primary)] dark:hover:text-[var(--primary)]
@@ -58,9 +63,11 @@ const { remarkPluginFrontmatter } = await entry.render();
         <PostMetadata published={published} updated={updated} category={category} hideUpdateDate={true} class="mb-4"></PostMetadata>
 
         <!-- description -->
-        <div class:list={["transition text-75 mb-3.5 pr-4", {"line-clamp-2 md:line-clamp-1": !description}]}>
-            { description || remarkPluginFrontmatter.excerpt }
+        {(description || isFirst) &&
+        <div class:list={["transition text-75 mb-3.5 pr-4", {"text-base leading-relaxed line-clamp-5 [&_ol]:list-decimal [&_ol]:ml-5 [&_ul]:list-disc [&_ul]:ml-5 [&_li]:mb-1 [&_p]:mb-2": isFirst}]}>
+            {isFirst ? <Fragment set:html={longExcerptHtml} /> : description}
         </div>
+        }
 
         <!-- word count and read time  -->
         <div class="text-sm text-black/30 dark:text-white/30 flex gap-4 transition">
