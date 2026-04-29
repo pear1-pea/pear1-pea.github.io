@@ -8,10 +8,6 @@ import { getPostUrlBySlug } from "../utils/url-utils";
 export let categories: string[];
 export let sortedPosts: Post[] = [];
 
-const params = new URLSearchParams(window.location.search);
-categories = params.has("category") ? params.getAll("category") : [];
-const uncategorized = params.get("uncategorized");
-
 interface Post {
 	slug: string;
 	data: {
@@ -35,6 +31,10 @@ function formatDate(date: Date) {
 }
 
 onMount(async () => {
+	const params = new URLSearchParams(window.location.search);
+	categories = params.has("category") ? params.getAll("category") : [];
+	const uncategorized = params.get("uncategorized");
+
 	let filteredPosts: Post[] = sortedPosts;
 
 	if (categories.length > 0) {
