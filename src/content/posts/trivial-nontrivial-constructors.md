@@ -1,7 +1,7 @@
 ---
-title: C++ 平凡与非平凡构造函数辨析
+title: 平凡与非平凡构造函数辨析
 published: 2026-04-28
-description: 深入理解 C++ 中平凡构造函数与非平凡构造函数的区别、性能影响及应用场景
+description: ""
 category: C++
 draft: false
 ---
@@ -50,7 +50,7 @@ C 语言中处理内存的三大核心函数：`memset`、`memcpy` 和 `memmove`
 
 #### 位模式（bit pattern）
 
-[什么是位模式](https://zhuanlan.zhihu.com/p/46317118)
+[什么是位模式](https://zhuanlan.zhihu.com/p/46317118)，，哎哎一些晦涩的概念和历史遗留
 
 ### 编译器优化与性能
 
@@ -82,7 +82,7 @@ C 语言中处理内存的三大核心函数：`memset`、`memcpy` 和 `memmove`
    - 它会将其优化为一条 **`rep stos`** 指令（在 X86 架构下）或者直接调用经过高度优化的库函数 `memset`。
    - 这种操作利用了 CPU **写合并（Write Combining）和缓存行（Cache Line）**特性，一次性填充整个内存块，速度接近硬件极限。
 
-   参考：[Write Combine 和 Cache 是什么关系](https://zhuanlan.zhihu.com/p/607637105)
+   哎哎，太低层了，[Write Combine 和 Cache 是什么关系](https://zhuanlan.zhihu.com/p/607637105)
 
 3. **静态初始化与数据段**
 

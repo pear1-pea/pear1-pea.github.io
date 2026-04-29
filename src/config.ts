@@ -9,7 +9,7 @@ import { LinkPreset } from "./types/config";
 
 export const siteConfig: SiteConfig = {
 	title: "Pear's Blog",
-	subtitle: "技术、生活与思考",
+	subtitle: "tech, life and thoughts",
 	lang: "zh_CN", // Language code, e.g. 'en', 'zh_CN', 'ja', etc.
 	themeColor: {
 		hue: 250, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
@@ -55,7 +55,7 @@ export const navBarConfig: NavBarConfig = {
 export const profileConfig: ProfileConfig = {
 	avatar: "assets/images/demo-avator.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "Pear",
-	bio: "C++ 开发工程师 | 技术爱好者 | 终身学习者",
+	bio: "believe",
 	links: [
 		{
 			name: "GitHub",
@@ -72,7 +72,6 @@ export const licenseConfig: LicenseConfig = {
 };
 
 export const expressiveCodeConfig: ExpressiveCodeConfig = {
-	// Note: Some styles (such as background color) are being overridden, see the astro.config.mjs file.
-	// Please select a dark theme, as this blog theme currently only supports dark background color
-	theme: "github-dark",
+	theme: "github-light",
+	darkTheme: "github-dark",
 };
